@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "tsc:server": "tsc -p server/tsconfig.ssr.json",
+    "build:client-and-server-bundles": "ng build --prod --aot && ng run universal-v6-demo:server",
+    "build:universal": "npm run build:client-and-server-bundles && npm run tsc:server",
+    "serve:universal": "node dist/universal-v6-demo/server/index.js"
   },
   "private": true,
   "dependencies": {
@@ -19,8 +23,12 @@
     "@angular/http": "^6.0.3",
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/platform-server": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@nguniversal/express-engine": "^6.0.0",
+    "@nguniversal/module-map-ngfactory-loader": "^6.0.0",
     "core-js": "^2.5.4",
+    "express": "^4.16.3",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
