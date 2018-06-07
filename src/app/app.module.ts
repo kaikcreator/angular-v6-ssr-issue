@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -16,7 +17,7 @@ let routes = [
   },
   {
     path: 'lazy',
-    loadChildren: `lazy/lazy.module#LazyModule`
+    loadChildren: `./lazy/lazy.module#LazyModule`
   }
 ]
 
@@ -27,6 +28,9 @@ let routes = [
     HomeComponent
   ],
   imports: [
+    RouterModule.forRoot(routes,{
+      //initialNavigation:'enabled'
+    }),
     BrowserModule.withServerTransition({ appId: 'serverApp' })
   ],
   providers: [],

@@ -1,0 +1,10 @@
+div{
+    height: 100vh;
+    background-color:#AA3939;
+    color: white; 
+}
+
+p{
+    font-size: 50px;
+    text-align: center;
+}

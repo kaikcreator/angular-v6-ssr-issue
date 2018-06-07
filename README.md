@@ -1,27 +1,28 @@
 # UniversalV6Demo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7, and has been modified in order to work with SSR. It is a simple demo to show a flickering issue happening with lazy-loading routes when using SSR.
 
-## Development server
+## How to reproduce the issue
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Run `npm install` to install all dependencies
+2. Run `npm run build:universal` to build the project
+3. Run `npm run serve:universal` to execute the server
+4. Open your browser and set the network conditions to slow 3G, so you can appreciate better the issue
+5. Navigate to *http://localhost:4000/lazy*. 
 
-## Code scaffolding
+You should see how the content appears, then disapears and then appears again.
+If you watch the elements with the inspector, you can see how the lazy loaded component is received with the initial render of the page, and then (when the page is rehydrated) how it suddenly disapears, leaving the `<router-outlet>` alone. Finally, it appears again.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+**NOTE:** If the router is imported with the `initialNavigation` set to `enabled`, like this:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```js
+    RouterModule.forRoot(routes,{
+      initialNavigation:'enabled'
+    }),
+```
 
-## Running unit tests
+Then it works in this demo. However, I've a more complex project that does not load when `initialNavigation` is set to `enabled`. The `<app-root>` keeps empty all the time.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+I'm gonna investigate it further in a new branch.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
